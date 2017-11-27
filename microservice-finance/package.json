@@ -1,0 +1,27 @@
+{
+  "name": "microservice-finance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "mongoose": "^4.13.5",
+    "yahoo-finance": "^0.3.5"
+  },
+  "xo": {
+    "envs": [
+      "node"
+    ],
+    "space": 2,
+    "rules": {
+      "max-len": [
+        "error",
+        80,
+        2
+      ]
+    }
+  }
+}
