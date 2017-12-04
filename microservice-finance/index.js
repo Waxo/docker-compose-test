@@ -1,14 +1,16 @@
+#!/usr/bin/env node
 const yahooFinance = require('yahoo-finance');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const {createOrUpdateStock} = require('./app/controllers/stocks');
 
-mongoose.connect(process.env.DB, {useMongoClient: true});
+const dbURL = process.env.DB || 'mongodb://127.0.0.1:27017/dev-yahoo-finance';
+
+mongoose.connect(dbURL, {useMongoClient: true});
 
 const stocks = [
   'BNP.PA',
-  'FP.PA',
-
+  'FP.PA'
 ];
 
 const getValue = async symbol => {
@@ -26,7 +28,7 @@ const main = async () => {
     return {[a]: results[idx]};
   });
 
-  stocks.map((a, idx) => {
+  stocks.forEach((a, idx) => {
     createOrUpdateStock(a, results[idx]);
   });
 

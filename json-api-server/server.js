@@ -1,10 +1,18 @@
+#!/usr/bin/env node
 const app = require('express')();
 const API = require('json-api');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+if (!process.env.BASE_URL || !process.env.SUFFIX_URL || !process.env.PORT) {
+  console.log('You should check if your environment variables are good.');
+  process.exit(1);
+}
+
+const dbURL = process.env.DB || 'mongodb://127.0.0.1:27017/dev-yahoo-finance';
+
 const APIError = API.types.Error;
-mongoose.connect(process.env.DB, {useMongoClient: true});
+mongoose.connect(dbURL, {useMongoClient: true});
 
 const models = {
   User: require('./models/user').model,
